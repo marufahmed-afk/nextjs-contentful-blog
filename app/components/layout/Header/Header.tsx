@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 const Header = () => {
@@ -12,9 +13,11 @@ const Header = () => {
   return (
     <div className="relative flex h-6 w-full items-center py-7">
       <div className="space-x-reverse-3 mx-auto flex w-full max-w-7xl items-center justify-between">
-        <h4 className="cursor-pointer text-lg font-bold text-gray-600 transition duration-300 ease-out hover:text-black">
-          blog.
-        </h4>
+        <Link href={'/'}>
+          <h4 className="cursor-pointer text-lg font-bold text-gray-600 transition duration-300 ease-out hover:text-black">
+            blog.
+          </h4>
+        </Link>
         {/* <SearchIcon className="hidden h-5 cursor-pointer text-gray-600 transition duration-300 ease-out hover:text-black md:inline-flex" /> */}
         <div className="flex gap-2">
           <h4

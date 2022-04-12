@@ -2,9 +2,10 @@ type TagProps = {
   title: string;
   size?: 'sm' | 'lg';
   variant?: 'light' | 'dark';
+  slug?: string;
 };
 
-const Tag = ({ title, size, variant }: TagProps) => {
+const Tag = ({ title, size, variant, slug }: TagProps) => {
   return size === 'sm' ? (
     <div
       className={`cursor-pointer rounded-full border-2 ${
@@ -15,6 +16,7 @@ const Tag = ({ title, size, variant }: TagProps) => {
     </div>
   ) : (
     <div
+      id={slug}
       className={`cursor-pointer rounded-full border-2 ${
         variant === 'light' ? 'border-white' : 'border-gray-600'
       }  py-2 px-6 transition duration-300 ease-out hover:bg-gray-600 hover:text-white`}

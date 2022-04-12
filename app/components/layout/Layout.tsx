@@ -12,6 +12,7 @@ const Layout = ({ children }: LayoutProps) => {
       <div className="mx-auto w-full max-w-7xl ">
         <Header />
         <div>{children}</div>
+        <Footer />
       </div>
     </div>
   );

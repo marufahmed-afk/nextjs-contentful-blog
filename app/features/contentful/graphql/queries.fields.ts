@@ -33,5 +33,27 @@ export const ENTRY_GRAPHQL_FIELDS = {
   TagCollection: `
   ... on Tag {
     title
+    slug
   } `,
+  BlogFromTagCollection: `
+  title
+  slug
+  summary
+  tagsCollection{
+      items{
+        title
+      }
+    }
+  image {
+    sys {
+      id
+    }
+    size
+    url
+    title
+  }
+  sys {
+    id
+    firstPublishedAt
+  }`,
 };

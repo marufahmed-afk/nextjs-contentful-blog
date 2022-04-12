@@ -18,6 +18,22 @@ const fetchGraphQL = async (query: string) => {
   }).then((result) => result.data);
 };
 
+export const getSingleBlog = async (locale: any, slug: any) => {
+  const blogs = await fetchGraphQL(
+    `query {
+                  blogCollection(locale: "${
+                    locale ?? 'en-US'
+                  }", where: {slug: "${slug}"}) {
+                      items {
+                          ${ENTRY_GRAPHQL_FIELDS.BlogCollection}
+                      }
+                  }
+              }`
+  );
+
+  return blogs.data.blogCollection?.items;
+};
+
 export const getAllBlogs = async (locale: string) => {
   const blogs = await fetchGraphQL(
     `query {
@@ -47,21 +63,23 @@ export const getFeaturedBlogs = async (locale: string) => {
   return blogs.data.blogCollection?.items;
 };
 
-export const getBlogsByTag = async (locale: string) => {
+export const getBlogsByTag = async (locale: string, tag: string) => {
   const blogs = await fetchGraphQL(
     `query {
-                    tagCollection(where: { title: "Nature" },locale: "${
-                      locale ?? 'en-US'
-                    }") {
-                        linkedFrom{
-                        items {
-                            ${ENTRY_GRAPHQL_FIELDS.BlogCollection}
-                        }
-                    }
-                    }
+      tagCollection(where: {slug: "${tag}"}, limit: 1) {
+        items {
+          linkedFrom {
+            blogCollection(limit: 10) {
+              items {
+                ${ENTRY_GRAPHQL_FIELDS.BlogFromTagCollection}
+              }
+            }
+          }
+        }
+      }
                 }`
   );
-  return blogs.data.blogCollection?.items;
+  return blogs.data.tagCollection.items[0].linkedFrom.blogCollection?.items;
 };
 
 export const getAllTags = async (locale: string) => {

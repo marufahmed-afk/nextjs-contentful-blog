@@ -4,37 +4,49 @@ import Tags from '@app/features/blog/components/Tags/Tags';
 import {
   getAllBlogs,
   getAllTags,
+  getBlogsByTag,
   getFeaturedBlogs,
 } from '@app/features/contentful/graphql/api';
-import {
-  BlogCollectionDef,
-  BlogItemDef,
-} from '@app/features/contentful/types/contentful.types';
-import type { GetServerSideProps, GetStaticProps, NextPage } from 'next';
+
+import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
-import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 const Home: NextPage = ({ blogs, featuredBlogs, tags }: any) => {
-  // const getBlogs = async () => {
-  //   const blgs = await getAllBlogs('en-US');
-  //   console.log(blgs);
-  // };
+  const [filteredBlogs, setFilteredBlogs] = useState(blogs);
+  const [currentTag, setCurrentTag] = useState('');
 
-  // useEffect(() => {
-  //   getBlogs();
-  // }, []);
+  const router = useRouter();
+
+  const getFilteredBlogs = async (tag: string) => {
+    let _blogs = [];
+
+    if (tag === 'all') {
+      _blogs = router?.locale && (await getAllBlogs(router?.locale));
+    } else {
+      _blogs = router?.locale && (await getBlogsByTag(router?.locale, tag));
+    }
+    setFilteredBlogs(_blogs);
+  };
+  useEffect(() => {
+    if (currentTag !== '') {
+      console.log(currentTag);
+      getFilteredBlogs(currentTag);
+    }
+  }, [currentTag]);
 
   return (
     <div>
       <Head>
-        <title>Create Next App</title>
+        <title>blog.</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
         <FeaturedBlogs featuredBlogs={featuredBlogs} />
-        <Tags tags={tags} />
-        <Blogs blogs={blogs} />
+        <Tags tags={tags} setCurrentTag={setCurrentTag} />
+        <Blogs blogs={filteredBlogs} />
       </main>
     </div>
   );

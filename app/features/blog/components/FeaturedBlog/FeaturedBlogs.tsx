@@ -13,6 +13,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { BlogItemDef } from '@app/features/contentful/types/contentful.types';
+import Link from 'next/link';
 
 type FeaturedBlogProps = {
   featuredBlogs: [BlogItemDef];
@@ -26,8 +27,6 @@ const FeaturedBlogs = ({ featuredBlogs }: FeaturedBlogProps) => {
       autoplay={true}
       pagination={true}
       modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay, Thumbs]}
-      onSlideChange={() => console.log('slide change')}
-      onSwiper={(swiper) => console.log(swiper)}
     >
       {featuredBlogs &&
         featuredBlogs?.map((blog) => (
@@ -40,9 +39,11 @@ const FeaturedBlogs = ({ featuredBlogs }: FeaturedBlogProps) => {
                 <p className="md: mb-8 max-w-[800px] text-sm text-white  line-clamp-3  md:text-lg">
                   {blog?.summary}
                 </p>
-                <button className="self-center rounded-md bg-orange-500 py-2 px-6 text-sm font-semibold hover:bg-orange-600 md:self-start md:text-base">
-                  Read Article
-                </button>
+                <Link href={`/blog/${blog?.slug}`}>
+                  <button className="self-center rounded-md bg-orange-500 py-2 px-6 text-sm font-semibold hover:bg-orange-600 md:self-start md:text-base">
+                    Read Article
+                  </button>
+                </Link>
               </div>
               <Image
                 src={blog?.image.url ?? '/assets/placeholder.jpg'}
