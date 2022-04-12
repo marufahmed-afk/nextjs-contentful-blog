@@ -7,33 +7,36 @@ import Head from 'next/head';
 import Image from 'next/image';
 
 const BlogPage: NextPage = ({ blog }: any) => {
-  return (
-    <div>
-      <Head>
-        <title>{blog.title}</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+  if (blog) {
+    return (
+      <div>
+        <Head>
+          <title>Blog</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
 
-      <main>
-        <div className="relative mt-5 mb-10 h-[200px] overflow-hidden rounded-xl md:h-[400px]">
-          <div className="absolute inset-0 z-10 flex  h-full w-full flex-col bg-black/50 p-8 backdrop-blur-sm md:justify-end">
-            <h2 className=" mb-5 text-3xl font-bold text-white md:text-5xl">
-              {blog?.title}
-            </h2>
-            <p className="md: mb-3 max-w-[800px] text-sm text-white  line-clamp-3  md:text-lg">
-              {blog?.summary}
-            </p>
+        <main>
+          <div className="relative mt-5 mb-10 h-[200px] overflow-hidden rounded-xl md:h-[400px]">
+            <div className="absolute inset-0 z-10 flex  h-full w-full flex-col bg-black/50 p-8 backdrop-blur-sm md:justify-end">
+              <h2 className=" mb-5 text-3xl font-bold text-white md:text-5xl">
+                {blog?.title}
+              </h2>
+              <p className="md: mb-3 max-w-[800px] text-sm text-white  line-clamp-3  md:text-lg">
+                {blog?.summary}
+              </p>
+            </div>
+            <Image
+              src={blog?.image.url ?? '/assets/placeholder.jpg'}
+              layout="fill"
+              objectFit="cover"
+              className=""
+            />
           </div>
-          <Image
-            src={blog?.image.url ?? '/assets/placeholder.jpg'}
-            layout="fill"
-            objectFit="cover"
-            className=""
-          />
-        </div>
-      </main>
-    </div>
-  );
+        </main>
+      </div>
+    );
+  }
+  return <p>Loading...</p>;
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
