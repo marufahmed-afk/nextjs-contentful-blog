@@ -63,6 +63,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       featuredBlogs,
       tags,
     },
+    revalidate: 1,
   };
 };
 
