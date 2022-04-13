@@ -12,7 +12,7 @@ const Tag = ({ title, size, variant, slug }: TagProps) => {
         variant === 'light' ? 'border-white text-white' : 'border-gray-600'
       }  py-1 px-4 text-xs`}
     >
-      #{title}
+      #{title.toLowerCase()}
     </div>
   ) : (
     <div

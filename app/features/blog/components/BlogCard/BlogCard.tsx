@@ -20,7 +20,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
             className=""
           />
         </div>
-        <div className="bg-white/2 md: md: inset-0 z-10 block h-full w-full px-3 py-7 pb-5 backdrop-blur-sm md:px-5">
+        <div className="bg-white/2 md: md: inset-0 z-10  flex w-full flex-col px-3 py-7 pb-5 backdrop-blur-sm md:px-5">
           <p className="mb-3 text-xs">
             {formattedDate(blog?.sys?.firstPublishedAt)}
           </p>
@@ -28,7 +28,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
           <p className=" md:line-clamp-10 mb-5 text-clip text-sm  line-clamp-6 md:text-base ">
             {blog?.summary}
           </p>
-          <div className="flex gap-2">
+          <div className="flex gap-2 justify-self-end">
             {blog?.tagsCollection?.items?.map((tag) => (
               <Tag key={tag.title} title={tag.title} variant="dark" size="sm" />
             ))}

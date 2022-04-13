@@ -1,3 +1,4 @@
+import RichText from '@app/components/atoms/RichText';
 import {
   getAllBlogs,
   getSingleBlog,
@@ -7,11 +8,12 @@ import Head from 'next/head';
 import Image from 'next/image';
 
 const BlogPage: NextPage = ({ blog }: any) => {
+  console.log(blog);
   if (blog) {
     return (
       <div>
         <Head>
-          <title>Blog</title>
+          <title>{blog?.title}</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
@@ -33,6 +35,8 @@ const BlogPage: NextPage = ({ blog }: any) => {
             />
           </div>
         </main>
+
+        {blog?.content && <RichText content={blog.content.json} />}
       </div>
     );
   }
@@ -59,7 +63,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
 
   return {
     props: { blog: items[0] },
-    revalidate: 1,
+    revalidate: 10,
   };
 };
 

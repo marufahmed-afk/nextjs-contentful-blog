@@ -12,6 +12,9 @@ export const ENTRY_GRAPHQL_FIELDS = {
     title
     slug
     summary
+    content{
+      json
+    }
     tagsCollection{
         items{
           title
@@ -36,7 +39,7 @@ export const ENTRY_GRAPHQL_FIELDS = {
     slug
   } `,
   BlogFromTagCollection: `
-  title
+  title( locale: "fr")
   slug
   summary
   tagsCollection{

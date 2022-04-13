@@ -23,4 +23,5 @@ export type BlogItemDef = {
 
 export type BlogCollectionDef = {
   blogs: [BlogItemDef];
+  filteredBlogs: [BlogItemDef];
 };

@@ -14,7 +14,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 const Home: NextPage = ({ blogs, featuredBlogs, tags }: any) => {
-  const [filteredBlogs, setFilteredBlogs] = useState(blogs);
+  const [filteredBlogs, setFilteredBlogs] = useState(null);
   const [currentTag, setCurrentTag] = useState('');
 
   const router = useRouter();
@@ -31,7 +31,6 @@ const Home: NextPage = ({ blogs, featuredBlogs, tags }: any) => {
   };
   useEffect(() => {
     if (currentTag !== '') {
-      console.log(currentTag);
       getFilteredBlogs(currentTag);
     }
   }, [currentTag]);
@@ -46,7 +45,7 @@ const Home: NextPage = ({ blogs, featuredBlogs, tags }: any) => {
       <main>
         <FeaturedBlogs featuredBlogs={featuredBlogs} />
         <Tags tags={tags} setCurrentTag={setCurrentTag} />
-        <Blogs blogs={filteredBlogs} />
+        <Blogs blogs={blogs} filteredBlogs={filteredBlogs} />
       </main>
     </div>
   );
@@ -63,7 +62,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       featuredBlogs,
       tags,
     },
-    revalidate: 1,
+    revalidate: 10,
   };
 };
 

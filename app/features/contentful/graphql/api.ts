@@ -4,7 +4,6 @@ import { ENV } from '@app/features/contentful/constants/contentful.env';
 import { ENTRY_GRAPHQL_FIELDS } from './queries.fields';
 
 const fetchGraphQL = async (query: string) => {
-  console.log(ENV.SPACE_ID);
   return axios({
     url: `https://graphql.contentful.com/content/v1/spaces/${ENV.SPACE_ID}/environments/${ENV.ENVIRONMENT}`,
     method: 'post',
@@ -71,7 +70,26 @@ export const getBlogsByTag = async (locale: string, tag: string) => {
           linkedFrom {
             blogCollection(limit: 10) {
               items {
-                ${ENTRY_GRAPHQL_FIELDS.BlogFromTagCollection}
+                title(locale: "${locale ?? 'en-US'}")
+                slug
+                summary(locale: "${locale ?? 'en-US'}")
+                tagsCollection(locale: "${locale ?? 'en-US'}"){
+                    items{
+                      title
+                    }
+                  }
+                image {
+                  sys {
+                    id
+                  }
+                  size
+                  url
+                  title
+                }
+                sys {
+                  id
+                  firstPublishedAt
+                }
               }
             }
           }
