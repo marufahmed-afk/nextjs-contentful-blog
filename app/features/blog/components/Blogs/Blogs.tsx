@@ -19,7 +19,7 @@ const Blogs = ({ blogs, filteredBlogs }: BlogCollectionDef) => {
 
   if (blogs?.length) {
     return (
-      <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
         {blogs &&
           blogs.map((blog) => <BlogCard key={blog.sys.id} blog={blog} />)}
       </div>

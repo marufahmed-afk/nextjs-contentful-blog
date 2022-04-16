@@ -17,9 +17,9 @@ const Tag = ({ title, size, variant, slug }: TagProps) => {
   ) : (
     <div
       id={slug}
-      className={`cursor-pointer rounded-full border-2 ${
+      className={`cursor-pointer rounded-full border-[1px] sm:border-2 ${
         variant === 'light' ? 'border-white' : 'border-gray-600'
-      }  py-2 px-6 transition duration-300 ease-out hover:bg-gray-600 hover:text-white`}
+      } whitespace-nowrap py-1 px-4 text-xs transition duration-300 ease-out hover:bg-gray-600 hover:text-white sm:py-2 sm:px-6 sm:text-base`}
     >
       {title}
     </div>
